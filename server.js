@@ -1,6 +1,7 @@
 "use strict";
 
 require('dotenv').config();
+const settings=require('./settings');
 
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
@@ -41,6 +42,36 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+
+
+app.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
+
+app.post("/checkout", (req, res) => {
+
+  let cellno = req.body.cell;
+  cellno = '+1' + cellno;
+  console.log(cellno);
+
+  res.send("Hello World");
+
+/*
+  const accountSid = settings.accountSid;
+const authToken = settings.authToken;
+const client = require('twilio')(accountSid, authToken);
+
+client.messages
+ .create({
+    body: 'I am watching you Ryan...!',
+    from: '+12267991623',
+    to: cellno
+  })
+ .then(message => console.log(message.sid))
+ .done();
+*/
 });
 
 app.listen(PORT, () => {

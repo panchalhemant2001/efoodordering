@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<title>Checkout - eFoodOrdering</title>
+
+<script type="text/javascript" src="vendor/jquery-3.0.0.js"></script>
+
+
+<script type="text/javascript" src="scripts/checkout.js"></script>
+
+
+</head>
+<body>
+<form id="frmcheckout">
+
+  <table align="center">
+    <tr>
+      <th>User Name</th>
+      <td><input type="text" name="txtname" value="Hemant"></td>
+    </tr>
+
+    <tr>
+      <th>Cell # </th>
+      <td><input type="tel" name="cell" value="647-782-2865"></td>
+    </tr>
+
+    <tr>
+      <th>Amount</th>
+      <td><input type="number" name="txtamount" value="100"></td>
+    </tr>
+
+    <tr>
+      <th>HST (13%)</th>
+      <td><input type="number" name="txttax" value="13"></td>
+    </tr>
+
+    <tr>
+      <th>Tip</th>
+      <td><input type="number" name="txttip" value="5"></td>
+    </tr>
+
+    <tr>
+      <th>Order Total</th>
+      <td><input type="number" name="txtordertotal" value="118"></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <button id="btnplaceorder" type="submit">Place Order</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>
