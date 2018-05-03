@@ -10,13 +10,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles/layout.css">
 
-
-  <title>Hello, world!</title>
+  <title>Bitehouse Labs</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <span class="navbar-brand" href="#">Food Ordering</span>
+  <span class="navbar-brand" href="#">Bitehouse Labs</span>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <button id="openCart" class="btn btn-outline-success my-2 my-sm-0" data-toggle='modal' data-target='#submitOrder'>Cart</button>
   </div>
 </nav>
 <!-- Optional JavaScript -->
@@ -24,56 +23,37 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
 <body>
 
+
   <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src="https://images.unsplash.com/photo-1508424897381-4fd8755e4b7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79896d89532ce982c53efebba2883a6b&auto=format&fit=crop&w=675&q=80" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-         <a href="#" class="btn btn-primary">Learn more</a>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8f04250c11997c7046243e006429db7b&auto=format&fit=crop&w=675&q=80" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-         <a href="#" class="btn btn-primary">Learn more</a>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="https://images.unsplash.com/photo-1501197827945-7d2594e437b1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1048b6d1d2cfd556e1f28d6762102802&auto=format&fit=crop&w=1534&q=80" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis mi pellentesque, pulvinar dolor vitae, imperdiet metus. Sed sit amet eleifend leo. Etiam sed tempor massa. </p>
-        <p class="card-text"><small class="text-muted">1600 Cals</small></p>
-         <a href="#" class="btn btn-primary">Learn more</a>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="https://images.unsplash.com/photo-1501197827945-7d2594e437b1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1048b6d1d2cfd556e1f28d6762102802&auto=format&fit=crop&w=1534&q=80" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis mi pellentesque, pulvinar dolor vitae, imperdiet metus. Sed sit amet eleifend leo. Etiam sed tempor massa. </p>
-        <p class="card-text"><small class="text-muted">1600 Cals</small></p>
-         <a href="#" class="btn btn-primary">Learn more</a>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="https://images.unsplash.com/photo-1501197827945-7d2594e437b1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1048b6d1d2cfd556e1f28d6762102802&auto=format&fit=crop&w=1534&q=80" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis mi pellentesque, pulvinar dolor vitae, imperdiet metus. Sed sit amet eleifend leo. Etiam sed tempor massa. </p>
-        <p class="card-text"><small class="text-muted">1600 Cals</small></p>
-         <a href="#" class="btn btn-primary">Learn more</a>
-      </div>
-    </div>
-    
+<div class="row">
+
   </div>
+
+  <div class="modal fade" id="submitOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modalTitle"> Cart </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div id="cartBody">
+
+
+
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Order More</button><br>
+<button type="button" id='orderSubmit' class="btn btn-secondary btn-lg btn-block">Submit</button>
+
+
+
+
+
 </body>
 
 </html>

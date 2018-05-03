@@ -1,0 +1,12 @@
+[
+  {
+    "food": {
+      "foodid": "098234",
+      "price": "$14.99",
+      "foodName": "@SirIsaac",
+    "description":  "Much tasty. Very wow. Howdy!",
+    "calories": "2122",
+    "imageURL": "https://images.unsplash.com/photo-1508424897381-4fd8755e4b7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79896d89532ce982c53efebba2883a6b&auto=format&fit=crop&w=675&q=80"
+    }
+  }
+]
