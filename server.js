@@ -56,7 +56,8 @@ app.post("/checkout", (req, res) => {
   cellno = '+1' + cellno;
   console.log(cellno);
 
-  res.send("Hello World");
+  console.log("Json req: ",req.body.txtorderitemsjson);
+  res.send("Hemant");
 
 /*
   const accountSid = settings.accountSid;

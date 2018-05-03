@@ -22,11 +22,11 @@ knex.schema.createTable('foods', function(table) {
      table.increments('order_id');
      table.string('user_name');
      table.string('user_cell_number');
+     table.json('cartItems');
      table.decimal('total_price');
      table.decimal('tax');
-     table.decimal('tip');
+     table.decimal('order_total');
      table.string('order_status');
-     table.json('cartItems');
      table.integer('paymentOptions').default(0);
     })
    ])

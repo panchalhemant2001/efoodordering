@@ -1,60 +1,78 @@
 $('document').ready(function() {
 
-
-    let ordereditems = [
+    //getting from the cookie
+    let cartItems = [
       {
        "foodid": "2342342",
-       "price": "$10.99",
+       "price": "10.99",
        "foodName": "Big Gulp",
-       "description": "Welcome to Good Burger!",
-       "calories": "1231",
-       "imageURL": "https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjF9&s=d78e78bf715baa67c7f6473b66984581&auto=format&fit=crop&w=675&q=80"
+       "quantity": "3"
      },
      {
        "foodid": "323222",
-       "price": "$15.99",
-       "foodName": "Big Gulp",
-       "description": "Welcome to Good Burger!",
-       "calories": "1231",
-       "imageURL": "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?ixlib=rb-0.3.5&s=c04e9f7e24c4c6b1b07c10abdc447872&auto=format&fit=crop&w=634&q=80"
+       "price": "15.99",
+       "foodName": "Wings",
+       "quantity": "5"
+     },
+     {
+       "foodid": "393422",
+       "price": "2.99",
+       "foodName": "coffee",
+       "quantity": "10"
      }
     ];
+
+    //to store in the database
+    var orderItems = {};    //empty object
+
+    /*let orderItems = {
+      "2342342": {
+       "foodid": "2342342",
+       "price": "10.99",
+       "foodName": "Big Gulp",
+       "quantity": "3"
+     },
+     "323222": {
+       "foodid": "323222",
+       "price": "15.99",
+       "foodName": "Big Gulp",
+       "quantity": "5"
+     }
+    };*/
+
+    //This method must be called first before any other code is executed
+    $('#frmcheckout table').prepend(getDisplayCardItems(cartItems));
 
 
 
     $('#frmcheckout').on('submit', (event) => {
-    event.preventDefault();
+      event.preventDefault();
 
-    let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
+      let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
-    if(payoption == "1") {
-      /*
-  =============>>>> TO WORK LATER ON THIS PART ===============>>>>>
-      */
-      alert("to be implemented");
-    } else if(payoption == "0") {
-     if(validateCheckoutForm()) {
-          $.ajax({
-            url: '/checkout',
-            type: 'POST',
-            data: $("form#frmcheckout").serialize(),
-            success: function( datareceived, status, jQxhr ){
-              //calling helper function that renders most recently added tweet
+      if(payoption == "1") {
+        /*
+    =============>>>> TO WORK LATER ON THIS PART ===============>>>>>
+        */
+        alert("to be implemented");
+      } else if(payoption == "0") {
+       if(validateCheckoutForm()) {
+            $.ajax({
+              url: '/checkout',
+              type: 'POST',
+              data: $("form#frmcheckout").serialize(),
+              success: function( datareceived, status, jQxhr ){
               alert("Data Received: " + datareceived);
-
-              // $("#tweetform #counter").text("140");
-              // $("#text").val("");
-              // $("#text").focus();
-            }
-          });
-       } else {
-         $('#text').focus();
-       }
-    }
+              }
+            });
+         } else {
+          $('#txtname').focus();
+        }
+      }
   });
 
 
-
+    //Generating a payment form when user selects pay online option
     $('#frmcheckout input:radio[name="payoption"]').on('click', (event) => {
      let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
@@ -75,6 +93,56 @@ $('document').ready(function() {
 
 
 
+    function getDisplayCardItems(cartItems) {
+      let total = 0;
+      let hst = 0;
+      let ordertotal = 0;
+
+      let result = "<tr style='font-size: 1.2em; color: blue; background-color: #eee;'>" +
+                  "<td>Food Item</td><td>Price</td><td>Quantity</td></tr>";
+
+
+
+      for(let item of cartItems) {
+
+        result = result + "<tr style='font-size: 1em; color: #567; background-color: #fe8;'><td>" +
+            item["foodName"] + "</td><td style='text-align: right;'>$ " + item["price"] +
+            "</td><td style='text-align: center;'>" + item["quantity"] +
+            "</td></tr>";
+
+        total += (Number(item["price"]) * Number(item["quantity"]));
+
+
+        //adding object to orderItems json object to be stored in db
+        orderItems[item["foodid"]] = item;
+      }
+
+      hst = Math.round(total * 13 / 100, 2);
+      ordertotal = total + hst;
+
+      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #ddd;'><td>Total Amount" +
+                "</td><td>$ " + total + "</td></tr>";
+
+
+      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #ccc;'><td>HST" +
+                "</td><td>$ " + hst + "</td></tr>";
+
+
+
+      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #aaa;'><td>Order Total " +
+                "</td><td> $ " + ordertotal + "</td></tr>";
+
+
+      //setting values for hidden fields
+      $('#txtamount').val(total);
+      $('#txttax').val(hst);
+      $('#txtordertotal').val(ordertotal);
+      $('#txtorderitemsjson').val(JSON.stringify(orderItems));
+
+      return result;
+    }
+
+
 
 
 
@@ -82,7 +150,29 @@ $('document').ready(function() {
     function validateCheckoutForm() {
       //To validate user name and cell number fields
 
-      return true;
+      let result = true;
+      let txtname = $("#txtname").val();
+      let txtcell = $('#txtcell').val();
+
+      let $li = "";
+
+      $('#errList').html("");
+
+      if(txtname == null || txtname.trim() == "") {
+        $li = ('<li>Who will pick the delivery?</li>');
+
+        $("#errList").append($li);
+        result = false;
+      }
+
+      if(txtcell == null || txtcell.trim() == "") {
+        $li = ('<li>Your cell # please!</li>');
+
+        $("#errList").append($li);
+        result = false;
+      }
+
+      return result;
     }
 
 

@@ -13,53 +13,59 @@
 <body>
 <form id="frmcheckout">
 
-  <table align="center">
+  <table align="center" width="60%" style="border-radius: 10px; border-style: solid; border-width: 5px; margin-top: 30px; padding: 10px;">
+
+    <caption>FINALIZE YOUR ORDER HERE</caption>
+
     <tr>
-      <th>User Name</th>
-      <td><input type="text" name="txtname" value="Hemant"></td>
+      <th align="right">User Name</th>
+      <td colspan="2"><input type="text" name="txtname" id="txtname"></td>
     </tr>
 
     <tr>
-      <th>Cell # </th>
-      <td><input type="tel" name="cell" value="647-782-2865"></td>
+      <th align="right">Cell # (Example: 1234567890)</th>
+      <td colspan="2"><input type="number" name="cell" id="txtcell"></td>
     </tr>
 
     <tr>
-      <th>Amount</th>
-      <td><input type="number" name="txtamount" value="100"></td>
+      <td>
+      <td colspan="2">
+        <ul id="errList" style="color: red;">
+
+        </ul>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan="3"><input type="hidden" name="txtamount" id="txtamount"></td>
     </tr>
 
     <tr>
-      <th>HST (13%)</th>
-      <td><input type="number" name="txttax" value="13"></td>
+      <td colspan="3"><input type="hidden" name="txttax" id="txttax"></td>
     </tr>
 
     <tr>
-      <th>Tip</th>
-      <td><input type="number" name="txttip" value="5"></td>
+      <td colspan="3"><input type="hidden" name="txtordertotal" id="txtordertotal"></td>
     </tr>
 
     <tr>
-      <th>Order Total</th>
-      <td><input type="number" name="txtordertotal" value="118"></td>
+      <td colspan="3">
+        <input type="hidden" name="txtorderitemsjson" id="orderitemsjson">
+      </td>
     </tr>
+
 
     <tr>
       <th>Payment Options</th>
-      <td>
-        <input type="radio" name="payoption" value="0" checked>At Counter
-        <input type="radio" name="payoption" value="1">Pay by Card
-      </td>
-    </tr>
-
-    <tr>
       <td colspan="2">
-
+        <input type="radio" name="payoption" value="0" checked>At Counter
+        <input type="radio" name="payoption" value="1" disabled="true">Pay by Card
       </td>
     </tr>
 
-
     <tr>
+      <td></td>
       <td></td>
       <td>
         <button id="btnplaceorder" type="submit">Place Order</button>
@@ -68,8 +74,8 @@
 </form>
 
     <tr>
-      <td colspan="2">
-        <div id="paydiv">
+      <td colspan="3">
+        <div id="paydiv"> <!-- Payment using Credit/debit card -->
 
         </div>
       </td>
