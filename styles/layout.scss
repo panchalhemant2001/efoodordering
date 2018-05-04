@@ -24,14 +24,15 @@ header {
 	background: #fff;
 	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 	img {
-		width: 100%;
+		width: 10%;
     clip: rect(0px,60px,200px,0px);
+
 	}
 }
 
 .imgmodal {
   object-fit: cover;
-  width: 100%
+  width: 10vh
 }
 
 [class*="row"] {
@@ -52,13 +53,23 @@ header {
 	width: 95%;
 }
 
-
+img {
+  width: 13em;
+}
 
 .modal.fade{
   max-height: 100%;
 }
 
 
+table {
+  height: 300px;
+  width: 600px;
+}
+
+#cartBody{
+  width: 100em;
+}
 
 //counter
 .count-input {
