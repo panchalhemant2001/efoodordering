@@ -60,7 +60,8 @@ $('document').ready(function() {
             $.ajax({
               url: '/checkout',
               type: 'POST',
-              data: $("form#frmcheckout").serialize(),
+              //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
+              data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
               success: function( datareceived, status, jQxhr ){
               alert("Data Received: " + datareceived);
               }
@@ -137,7 +138,7 @@ $('document').ready(function() {
       $('#txtamount').val(total);
       $('#txttax').val(hst);
       $('#txtordertotal').val(ordertotal);
-      $('#txtorderitemsjson').val(JSON.stringify(orderItems));
+      //$('#txtorderitemsjson').val(JSON.stringify(orderItems));
 
       return result;
     }
@@ -174,8 +175,6 @@ $('document').ready(function() {
 
       return result;
     }
-
-
 });
 
 
