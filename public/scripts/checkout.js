@@ -70,6 +70,7 @@ $('document').ready(function() {
             $.ajax({
               type: 'POST',
               url: '/checkout',
+
               //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
               data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
               success: function( datareceived, status, jQxhr ){
