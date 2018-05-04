@@ -1,27 +1,30 @@
 $('document').ready(function() {
 
-    //getting from the cookie
-    let cartItems = [
-      {
-       "foodid": "2342342",
-       "price": "10.99",
-       "foodName": "Big Gulp",
-       "quantity": "3"
-     },
-     {
-       "foodid": "323222",
-       "price": "15.99",
-       "foodName": "Wings",
-       "quantity": "5"
-     },
-     {
-       "foodid": "393422",
-       "price": "2.99",
-       "foodName": "coffee",
-       "quantity": "10"
-     }
-    ];
+    // getting from the cookie
+    // let cartItems = [
+    //   {
+    //    "foodid": "2342342",
+    //    "price": "10.99",
+    //    "foodName": "Big Gulp",
+    //    "quantity": "3"
+    //  },
+    //  {
+    //    "foodid": "323222",
+    //    "price": "15.99",
+    //    "foodName": "Wings",
+    //    "quantity": "5"
+    //  },
+    //  {
+    //    "foodid": "393422",
+    //    "price": "2.99",
+    //    "foodName": "coffee",
+    //    "quantity": "10"
+    //  }
+    // ];
 
+
+      // console.log('cartitems', cartItems)
+      // console.log(document.cookie);
     //to store in the database
     var orderItems = {};    //empty object
 
@@ -41,13 +44,18 @@ $('document').ready(function() {
     };*/
 
     //This method must be called first before any other code is executed
-    $('#frmcheckout table').prepend(getDisplayCardItems(cartItems));
+
+    $('#orderSubmit').click(function() {
+      let cartItems = JSON.parse(document.cookie)
+      $('#frmcheckout table').prepend(getDisplayCardItems(cartItems));
+
+    })
 
 
 
-    $('#frmcheckout').on('submit', (event) => {
+
+    $(document).on('submit', '#frmcheckout', (event) => {
       event.preventDefault();
-
       let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
       if(payoption == "1") {
@@ -57,10 +65,13 @@ $('document').ready(function() {
         alert("to be implemented");
       } else if(payoption == "0") {
        if(validateCheckoutForm()) {
+         // alert('YI!');
+         console.log('orderitems', orderItems);
             $.ajax({
-              url: '/checkout',
               type: 'POST',
-              data: $("form#frmcheckout").serialize(),
+              url: '/checkout',
+              //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
+              data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
               success: function( datareceived, status, jQxhr ){
               alert("Data Received: " + datareceived);
               }
@@ -104,7 +115,7 @@ $('document').ready(function() {
 
 
       for(let item of cartItems) {
-
+        console.log('cartitems' ,cartItems);
         result = result + "<tr style='font-size: 1em; color: #567; background-color: #fe8;'><td>" +
             item["foodName"] + "</td><td style='text-align: right;'>$ " + item["price"] +
             "</td><td style='text-align: center;'>" + item["quantity"] +
@@ -115,6 +126,7 @@ $('document').ready(function() {
 
         //adding object to orderItems json object to be stored in db
         orderItems[item["foodid"]] = item;
+        console.log(orderItems[item["foodid"]]);
       }
 
       hst = Math.round(total * 13 / 100, 2);
@@ -137,7 +149,7 @@ $('document').ready(function() {
       $('#txtamount').val(total);
       $('#txttax').val(hst);
       $('#txtordertotal').val(ordertotal);
-      $('#txtorderitemsjson').val(JSON.stringify(orderItems));
+      //$('#txtorderitemsjson').val(JSON.stringify(orderItems));
 
       return result;
     }
@@ -174,9 +186,4 @@ $('document').ready(function() {
 
       return result;
     }
-
-
 });
-
-
-

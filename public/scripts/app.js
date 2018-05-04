@@ -54,11 +54,9 @@ let food = [{
 var total = []
 
 $(document).ready(function() {
-
   $("#openCart").click(function() {
     renderCart();
   });
-
   //render the food items
   renderFood(food);
   //open modal
@@ -68,9 +66,18 @@ $(document).ready(function() {
 
   //empty form on submission
   $('#orderSubmit').click(function() {
-    $('.modal-title').text("Success");
-    $('.submitForm').html('');
+    document.cookie = JSON.stringify(total)
+    $('#cartBody').replaceWith(checkoutHTML)
+    var x = document.cookie
+    console.log(document.cookie);
+
   })
+
+
+
+
+
+
 
   $('.addCart').click(function() {
 
@@ -88,9 +95,15 @@ $(document).ready(function() {
     // total = JSON.parse(getCookie('food')) || []
     total.push(order);
     console.log(total)
-    //
+
+
     // var jsonCookie = JSON.stringify(total)
     // document.cookie = `food = ${jsonCookie}`;
+
+
+
+
+
 
 
 
@@ -120,20 +133,20 @@ $(document).ready(function() {
 
 
   // $("#removeCart").click(function(cookie) {
-    // var cookie = JSON.stringify(getCookie('food'))
-    // console.log($(this).parents().find("#itemCart").text())
-    // $(this).parents().find(".itemCart").remove(".itemCart")
+  // var cookie = JSON.stringify(getCookie('food'))
+  // console.log($(this).parents().find("#itemCart").text())
+  // $(this).parents().find(".itemCart").remove(".itemCart")
 
-    // for (var keys in cookie) {
-    //   if (cookie[keys].foodName == $(this).parent().find("#cartName").text()) {
-    //     delete cookie[keys]
-    //     document.cookie = `food =`;
-    //     total = JSON.parse(getCookie('food')) || []
-    //     total.push(order);
-    //     var jsonCookie = JSON.stringify(total)
-    //     document.cookie = `food = ${jsonCookie}`;
-    //   }
-    // }
+  // for (var keys in cookie) {
+  //   if (cookie[keys].foodName == $(this).parent().find("#cartName").text()) {
+  //     delete cookie[keys]
+  //     document.cookie = `food =`;
+  //     total = JSON.parse(getCookie('food')) || []
+  //     total.push(order);
+  //     var jsonCookie = JSON.stringify(total)
+  //     document.cookie = `food = ${jsonCookie}`;
+  //   }
+  // }
   // })
 });
 
@@ -207,15 +220,21 @@ function createFoodCard(input) {
 //   if (parts.length == 2) return parts.pop().split(";").shift();
 // }
 
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
 
 function renderCart(cartList) {
 
-    for (var i = 0; i < total.length; i++) {
-      console.log(total[i]);
-      var cartListed = fillCart(total[i])
-      $('#cartBody').append(cartListed);
-    }
+  for (var i = 0; i < total.length; i++) {
+    console.log(total[i]);
+    var cartListed = fillCart(total[i])
+    $('#cartBody').append(cartListed);
   }
+}
 
 function fillCart(input) {
   var cartHTML = `<div class='itemCart'>
@@ -225,3 +244,81 @@ function fillCart(input) {
         `
   return cartHTML;
 }
+
+var checkoutHTML =
+  `
+
+<form id="frmcheckout">
+
+  <table align="center" width="60%" style="border-radius: 10px; border-style: solid; border-width: 5px; margin-top: 30px; padding: 10px;">
+
+    <caption>FINALIZE YOUR ORDER HERE</caption>
+
+    <tr>
+      <th align="right">User Name</th>
+      <td colspan="2"><input type="text" name="txtname" id="txtname"></td>
+    </tr>
+
+    <tr>
+
+      <!--
+        ==========NOTE FOR FUTURE DEVELOPERS HERE =====
+
+        This name cell is used in coding to extract  information on server.js app.post("/checkout") route.
+
+        Please make change to the code if you change the name from 'cell' to something else...
+
+      -->
+      <th align="right">Cell # (Example: 1234567890)</th>
+      <td colspan="2"><input type="number" name="cell" id="txtcell"></td>
+    </tr>
+
+    <tr>
+      <td>
+      <td colspan="2">
+        <ul id="errList" style="color: red;">
+
+        </ul>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan="3"><input type="hidden" name="txtamount" id="txtamount"></td>
+    </tr>
+
+    <tr>
+      <td colspan="3"><input type="hidden" name="txttax" id="txttax"></td>
+    </tr>
+
+    <tr>
+      <td colspan="3"><input type="hidden" name="txtordertotal" id="txtordertotal"></td>
+    </tr>
+
+    <tr>
+      <th>Payment Options</th>
+      <td colspan="2">
+        <input type="radio" name="payoption" value="0" checked>At Counter
+        <input type="radio" name="payoption" value="1" disabled="true">Pay by Card
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td>
+        <button id="btnplaceorder" type="submit">Place Order</button>
+      </td>
+    </tr>
+</form>
+
+    <tr>
+      <td colspan="3">
+        <div id="paydiv"> <!-- Payment using Credit/debit card -->
+
+        </div>
+      </td>
+    </tr>
+</table>
+
+`

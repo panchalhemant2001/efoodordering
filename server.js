@@ -1,5 +1,5 @@
 "use strict";
-
+var ordermodule = require("./modules/ordersModule");
 require('dotenv').config();
 const settings=require('./settings');
 
@@ -50,13 +50,27 @@ app.get("/checkout", (req, res) => {
   res.render("checkout");
 });
 
+
 app.post("/checkout", (req, res) => {
 
-  let cellno = req.body.cell;
-  cellno = '+1' + cellno;
-  console.log(cellno);
+  let frmArrayData = String(decodeURI(req.body.formdata)).split("&");
 
-  console.log("Json req: ",req.body.txtorderitemsjson);
+  let frmJsonObjData = {};
+
+  for(let key of frmArrayData) {
+    let tempArr = key.split("=");
+
+    //Here cell is a form field name (If you change form field name, please make change it here)
+    if(tempArr[0] == "cell") {
+      tempArr[1] = "+1" + tempArr[1];
+    }
+
+    frmJsonObjData[tempArr[0]] = tempArr[1];
+  }
+
+  console.log("body: " , frmJsonObjData);
+  console.log("Order items: ", req.body.orderitems);
+
   res.send("Hemant");
 
 /*
