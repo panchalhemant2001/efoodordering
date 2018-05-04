@@ -247,19 +247,7 @@ function fillCart(input) {
 
 var checkoutHTML =
   `
-<html>
 
-<head>
-<title>Checkout - eFoodOrdering</title>
-
-<script type="text/javascript" src="vendor/jquery-3.0.0.js"></script>
-
-
-<script type="text/javascript" src="scripts/checkout.js"></script>
-
-
-</head>
-<body>
 <form id="frmcheckout">
 
   <table align="center" width="60%" style="border-radius: 10px; border-style: solid; border-width: 5px; margin-top: 30px; padding: 10px;">
@@ -308,13 +296,6 @@ var checkoutHTML =
     </tr>
 
     <tr>
-      <td colspan="3">
-        <input type="hidden" name="txtorderitemsjson" id="orderitemsjson">
-      </td>
-    </tr>
-
-
-    <tr>
       <th>Payment Options</th>
       <td colspan="2">
         <input type="radio" name="payoption" value="0" checked>At Counter
@@ -339,7 +320,5 @@ var checkoutHTML =
       </td>
     </tr>
 </table>
-</body>
-</html>
 
 `
