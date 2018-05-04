@@ -165,7 +165,7 @@ function renderFood(food) {
 
 function createFoodCard(input) {
   var newHTML =
-    `
+    `<div class= 'card'>
      <div class="${input.foodid}">
         <img src="${input.imageURL}" alt="Card image cap">
         <div class="card-body">
@@ -174,6 +174,7 @@ function createFoodCard(input) {
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${input.foodid}">
             Learn more
           </button>
+          </div>
         </div>
       </div>
 </div>
@@ -245,56 +246,39 @@ function fillCart(input) {
   return cartHTML;
 }
 
-var checkoutHTML =
-  `
-
+var checkoutHTML =  `
 <form id="frmcheckout">
-
   <table align="center" width="60%" style="border-radius: 10px; border-style: solid; border-width: 5px; margin-top: 30px; padding: 10px;">
-
     <caption>FINALIZE YOUR ORDER HERE</caption>
-
     <tr>
       <th align="right">User Name</th>
       <td colspan="2"><input type="text" name="txtname" id="txtname"></td>
     </tr>
-
     <tr>
-
       <!--
         ==========NOTE FOR FUTURE DEVELOPERS HERE =====
-
         This name cell is used in coding to extract  information on server.js app.post("/checkout") route.
-
         Please make change to the code if you change the name from 'cell' to something else...
-
       -->
       <th align="right">Cell # (Example: 1234567890)</th>
       <td colspan="2"><input type="number" name="cell" id="txtcell"></td>
     </tr>
-
     <tr>
       <td>
       <td colspan="2">
         <ul id="errList" style="color: red;">
-
         </ul>
       </td>
     </tr>
-
-
     <tr>
       <td colspan="3"><input type="hidden" name="txtamount" id="txtamount"></td>
     </tr>
-
     <tr>
       <td colspan="3"><input type="hidden" name="txttax" id="txttax"></td>
     </tr>
-
     <tr>
       <td colspan="3"><input type="hidden" name="txtordertotal" id="txtordertotal"></td>
     </tr>
-
     <tr>
       <th>Payment Options</th>
       <td colspan="2">
@@ -302,7 +286,6 @@ var checkoutHTML =
         <input type="radio" name="payoption" value="1" disabled="true">Pay by Card
       </td>
     </tr>
-
     <tr>
       <td></td>
       <td></td>
@@ -311,14 +294,11 @@ var checkoutHTML =
       </td>
     </tr>
 </form>
-
     <tr>
       <td colspan="3">
-        <div id="paydiv"> <!-- Payment using Credit/debit card -->
-
+      <div id="paydiv"> <!-- Payment using Credit/debit card -->
         </div>
       </td>
     </tr>
 </table>
-
 `
