@@ -12,6 +12,7 @@ knex.schema.createTable('foods', function(table) {
 
    knex.schema.createTable('restaurants', function(table) {
      table.increments('restaurantId');
+     table.string('restaurantName');
      table.string('cellNumber');
      table.string('street');
      table.string('city');
