@@ -1,7 +1,11 @@
 "use strict";
-var ordermodule = require("./modules/ordersModule");
+var ordersModule = require("./modules/ordersModule");
+var telAPIModule = require("./modules/telAPIModule");
+var restaurantModule = require("./modules/restaurantModule");
+
+
 require('dotenv').config();
-const settings=require('./settings');
+
 
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
@@ -41,17 +45,34 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
-});
+
+  restaurantModule.getAllFoodItems()
+  .then((rows) => {
+    res.render("index", {cartItems: rows, myname: 'Hemant'});
+    //console.log(rows);
+  })
+  .catch(
+    (err) => {
+      console.log(err)
+    });
 
 
 
-app.get("/checkout", (req, res) => {
-  res.render("checkout");
 });
 
 
 app.post("/checkout", (req, res) => {
+
+  /*
+
+  //===== RECEIVING FOLLOWING ORDER OBJECTS ON CHECKOUT SUBMISSION, WHICH IN THE
+  //===== FOLLOWING CODE IS WRITTEN TO COMBINE INTO SINGLE JAVASCRIPT OBJECT AND
+  //===== PASSED TO ADD INTO orders DATABASE TABLE
+
+  console.log("body: " , frmJsonObjData);
+  console.log("Order items: ", req.body.orderitems);
+
+  */
 
   let frmArrayData = String(decodeURI(req.body.formdata)).split("&");
 
@@ -68,24 +89,32 @@ app.post("/checkout", (req, res) => {
     frmJsonObjData[tempArr[0]] = tempArr[1];
   }
 
-  console.log("body: " , frmJsonObjData);
-  console.log("Order items: ", req.body.orderitems);
 
-  res.send("Hemant");
+  frmJsonObjData["orderitems"] = req.body.orderitems;  //In this line, whole order details is stored in frmJsonObjData
+
+
+  //storing order object into the database here
+  ordersModule.addOrderDetails(frmJsonObjData)
+  .then((success) => {
+    res.send("Order is submitted successfully!");
+  })
+  .catch((error) => {
+    res.send("Error: Order is not submitted!");
+  })
+
 
 /*
-  const accountSid = settings.accountSid;
-const authToken = settings.authToken;
-const client = require('twilio')(accountSid, authToken);
+  //sending text message to the restaurant owner
+  let rMsg = "Hey Restaurant owner...it's your turn now!";
 
-client.messages
- .create({
-    body: 'I am watching you Ryan...!',
-    from: '+12267991623',
-    to: cellno
-  })
- .then(message => console.log(message.sid))
- .done();
+  telAPIModule.sendTextMessage(rMsg, "+12267008540")
+
+
+
+  //sending text message to the customer
+  let cMsg = "Hey Customer...it's your turn now!";
+
+  telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
 */
 });
 

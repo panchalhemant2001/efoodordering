@@ -1,26 +1,26 @@
 $('document').ready(function() {
 
     // getting from the cookie
-    // let cartItems = [
-    //   {
-    //    "foodid": "2342342",
-    //    "price": "10.99",
-    //    "foodName": "Big Gulp",
-    //    "quantity": "3"
-    //  },
-    //  {
-    //    "foodid": "323222",
-    //    "price": "15.99",
-    //    "foodName": "Wings",
-    //    "quantity": "5"
-    //  },
-    //  {
-    //    "foodid": "393422",
-    //    "price": "2.99",
-    //    "foodName": "coffee",
-    //    "quantity": "10"
-    //  }
-    // ];
+    let cartItems = [
+      {
+       "foodid": "2342342",
+       "price": "10.99",
+       "foodName": "Big Gulp",
+       "quantity": "3"
+     },
+     {
+       "foodid": "323222",
+       "price": "15.99",
+       "foodName": "Wings",
+       "quantity": "5"
+     },
+     {
+       "foodid": "393422",
+       "price": "2.99",
+       "foodName": "coffee",
+       "quantity": "10"
+     }
+    ];
 
 
       // console.log('cartitems', cartItems)
@@ -85,7 +85,7 @@ $('document').ready(function() {
 
 
     //Generating a payment form when user selects pay online option
-    $('#frmcheckout input:radio[name="payoption"]').on('click', (event) => {
+    $(document).on('click', '#frmcheckout input:radio[name="payoption"]', (event) => {
      let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
       if(payoption == "1") {
