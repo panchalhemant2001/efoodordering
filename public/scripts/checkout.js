@@ -1,26 +1,6 @@
 $('document').ready(function() {
 
-    // getting from the cookie
-    // let cartItems = [
-    //   {
-    //    "foodid": "2342342",
-    //    "price": "10.99",
-    //    "foodName": "Big Gulp",
-    //    "quantity": "3"
-    //  },
-    //  {
-    //    "foodid": "323222",
-    //    "price": "15.99",
-    //    "foodName": "Wings",
-    //    "quantity": "5"
-    //  },
-    //  {
-    //    "foodid": "393422",
-    //    "price": "2.99",
-    //    "foodName": "coffee",
-    //    "quantity": "10"
-    //  }
-    // ];
+
 
 
       // console.log('cartitems', cartItems)
@@ -45,14 +25,38 @@ $('document').ready(function() {
 
     //This method must be called first before any other code is executed
 
-    $('#orderSubmit').click(function() {
+    /*$('#orderSubmit').click(function() {
+      // console.log("This is the cart in JSON string format:",document.cookie);
       let cartItems = JSON.parse(document.cookie)
-      $('#frmcheckout table').prepend(getDisplayCardItems(cartItems));
 
+      //let cartItems = JSON.stringify(document.cookie)
+      // console.log("This the cart in JSON:", cartItems);
+      console.log('THIS IS THE DISPLAY CART FUNCTION RESULT:', getDisplayCardItems(cartItems))
+      //$('#frmcheckout1').append(getDisplayCardItems(cartItems))
+      //console.log($(this).closest("form"));
+      console.log($('.modal-header'));
+      $('#frmcheckout1')
+        .append(`<input type='submit' value='button'>`)
+    })*/
+
+
+    $(document).on('click', '#orderSubmit', function(event) {
+      // console.log("This is the cart in JSON string format:",document.cookie);
+      let cartItems = JSON.parse(document.cookie)
+
+      //let cartItems = JSON.stringify(document.cookie)
+      // console.log("This the cart in JSON:", cartItems);
+      console.log('THIS IS THE DISPLAY CART FUNCTION RESULT:', getDisplayCardItems(cartItems))
+      //$('#frmcheckout1').append(getDisplayCardItems(cartItems))
+      //console.log($(this).closest("form"));
+      //console.log($('#frmcheckout1'));
+      //console.log($('.modal-header'));
+      $('#frmcheckout table').prepend(getDisplayCardItems(cartItems));
     })
 
+    // This is the event handler for when the customer presses the stripe button
 
-
+    // above this line Ben edited
 
     $(document).on('submit', '#frmcheckout', (event) => {
       event.preventDefault();
@@ -85,18 +89,52 @@ $('document').ready(function() {
 
 
     //Generating a payment form when user selects pay online option
-    $('#frmcheckout input:radio[name="payoption"]').on('click', (event) => {
+    $(document).on('click', '#frmcheckout input:radio[name="payoption"]', (event) => {
      let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
       if(payoption == "1") {
 
-        let paymentform="<form method='post' name='payform'>" +
+      // edited by ben to implement stripe
+        let cartItems = JSON.parse(document.cookie)
+
+        let total = 0;
+        let hst = 0;
+        let ordertotal = 0;
+
+        for(let item of cartItems){
+          total += (Number(item["price"]) * Number(item["quantity"]));
+        }
+
+        hst = Math.round(total * 13 / 100, 2);
+        ordertotal = total + hst;
+        // console.log(ordertotal);
+        /*let paymentform="<form method='post' name='payform'>" +
               "Card Number: <input type='text' name='cardnumber'>" +
 
               "<input type='submit' name='btnpay' value='Pay Now'>" +
-              "</form>";
-        $('#paydiv').html(paymentform);
-        $('#btnplaceorder').hide();
+              "</form>"; */
+        //$('#paydiv').html(paymentform);
+
+      let paymentform=
+
+      `<form action="/charge" method="post">
+
+        <script
+          src= "//checkout.stripe.com/v2/checkout.js",
+          class= "stripe-button",
+          data-key="pk_test_6NGOL3y0NOiiAho1zSuKhKHf",
+          data-locale= "auto",
+          data-description= "Sample Charge",
+          data-amount="${ordertotal * 100}",
+          data-currency="cad">
+        </script>
+
+      </form>`;
+
+      // above this is what Ben added for stripe integration
+
+      $('#paydiv').html(paymentform);
+      $('#btnplaceorder').hide();
       } else if(payoption == "0") {
         $('#paydiv').html("");
         $('#btnplaceorder').show();
@@ -106,18 +144,19 @@ $('document').ready(function() {
 
 
     function getDisplayCardItems(cartItems) {
+      console.log("this is the entire cart", cartItems)
       let total = 0;
       let hst = 0;
       let ordertotal = 0;
 
-      let result = "<tr style='font-size: 1.2em; color: blue; background-color: #eee;'>" +
-                  "<td>Food Item</td><td>Price</td><td>Quantity</td></tr>";
+      let result = "<tr style='font-size: 1.2em; color: blue;'>" +
+                  "<td>Food Item</td><td align='right'>Price</td><td align='right'>Quantity</td></tr>";
 
 
 
       for(let item of cartItems) {
-        console.log('cartitems' ,cartItems);
-        result = result + "<tr style='font-size: 1em; color: #567; background-color: #fe8;'><td>" +
+        console.log("This should a each item in the cart as object", item);
+        result = result + "<tr style='font-size: 1em; color: #567;;'><td>" +
             item["foodName"] + "</td><td style='text-align: right;'>$ " + item["price"] +
             "</td><td style='text-align: center;'>" + item["quantity"] +
             "</td></tr>";
@@ -126,23 +165,25 @@ $('document').ready(function() {
 
 
         //adding object to orderItems json object to be stored in db
-        orderItems[item["foodid"]] = item;
-        console.log(orderItems[item["foodid"]]);
+        orderItems[item['foodId']] = item;
+       // console.log(orderItems);
       }
 
       hst = Math.round(total * 13 / 100, 2);
       ordertotal = total + hst;
 
-      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #ddd;'><td>Total Amount" +
-                "</td><td>$ " + total + "</td></tr>";
+      Math.round(ordertotal,2)
+
+      result += "<tr style='text-align: right; font-weight: bold; color: #567; '><td>Subtotal" +
+                "</td><td>$ " + Math.round(total,4) + "</td></tr>";
 
 
-      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #ccc;'><td>HST" +
+      result += "<tr style='text-align: right; font-weight: bold; color: #567;'><td>HST" +
                 "</td><td>$ " + hst + "</td></tr>";
 
 
 
-      result += "<tr style='text-align: right; font-weight: bold; color: #567; background-color: #aaa;'><td>Order Total " +
+      result += "<tr style='text-align: right; font-weight: bold; color: #567; '><td>Order Total " +
                 "</td><td> $ " + ordertotal + "</td></tr>";
 
 
@@ -151,7 +192,9 @@ $('document').ready(function() {
       $('#txttax').val(hst);
       $('#txtordertotal').val(ordertotal);
       //$('#txtorderitemsjson').val(JSON.stringify(orderItems));
-
+      // console.log(result);
+      //let x = '<h1> hello </h1>'
+      //return x;
       return result;
     }
 
@@ -184,7 +227,6 @@ $('document').ready(function() {
         $("#errList").append($li);
         result = false;
       }
-
       return result;
     }
 });

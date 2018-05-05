@@ -20,16 +20,38 @@ header {
 	}
 }
 
+#openCart{
+  display: flex;
+  justify-content: flex-end;
+}
+
+#frmcheckout{
+  margin: 1em 1em 1em 1em;
+}
+
+.foodName{
+  display: flex;
+  justify-content: center;
+}
+
 .card {
 	background: #fff;
 	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   margin: 0 auto;
+  min-width: 300px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 
 }
 
 .imgmodal {
   object-fit: cover;
-  width: 10vh
+  align-content: center;
+  width: 30vh
+}
+
+.foodName {
+  font-weight: bold;
 }
 
 [class*="row"] {
@@ -50,6 +72,12 @@ header {
 	width: 95%;
 }
 
+.btn {
+  display: flex;
+  justify-content: baseline;
+
+}
+
 img {
   width: 100%
 }
@@ -58,18 +86,22 @@ img {
   max-height: 100%;
 }
 
-#frmcheckout{
-  width: 100%;
-}
+
 
 
 table {
   height: 300px;
-  width: 600px;
+  width: 100%;
 }
 
-#cartBody{
-  width: 100em;
+.container{
+  width: 100%;
+}
+
+
+.btn .btn-primary {
+  justify-content: baseline;
+  display: flex;
 }
 
 //counter
