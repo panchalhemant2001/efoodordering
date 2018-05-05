@@ -1,6 +1,6 @@
 $.ajax('/data')
   .then(rows => {
-    console.log(rows);
+    // console.log(rows);
     var food = rows;
 
 

@@ -70,13 +70,12 @@ $('document').ready(function() {
       } else if(payoption == "0") {
        if(validateCheckoutForm()) {
          // alert('YI!');
-         console.log('orderitems', orderItems);
+         console.log('orderitems!!!', orderItems);
             $.ajax({
               type: 'POST',
               url: '/checkout',
-
               //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
-              data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
+              data: {formdata: $("form#frmcheckout").serialize(), orderitems: JSON.stringify(orderItems)},
               success: function( datareceived, status, jQxhr ){
               alert("Data Received: " + datareceived);
               }
@@ -117,7 +116,7 @@ $('document').ready(function() {
 
       let paymentform=
 
-      `<form action="/charge" method="post">
+      `<form action="/charge" method="post" id='stripeSubmit'>
 
         <script
           src= "//checkout.stripe.com/v2/checkout.js",
@@ -130,6 +129,10 @@ $('document').ready(function() {
         </script>
 
       </form>`;
+
+      $('#stripeSubmit').submit(function(){
+        alert('yes')
+      })
 
       // above this is what Ben added for stripe integration
 

@@ -119,20 +119,31 @@ app.post("/checkout", (req, res) => {
     res.send("Error: Order is not submitted!");
   })
 
+  const accountSid = settings.accountSid;
+  const authToken = settings.authToken;
+  const client = require('twilio')(accountSid, authToken);
 
-/*
-  //sending text message to the restaurant owner
-  let rMsg = "Hey Restaurant owner...it's your turn now!";
+  client.messages
+  .create({
+     body: 'DONE!',
+     from: '+12267991623',
+     to: '+14163589083'
+   })
+  .then(message => console.log(message.sid))
+  .done();
+  //
+  // //sending text message to the restaurant owner
+  // let rMsg = "Hey Ben ...it's your turn now!";
+  //
+  // telAPIModule.sendTextMessage(rMsg, "+12267008540")
+  //
+  //
+  //
+  // //sending text message to the customer
+  // let cMsg = "Hey Hemant, We Got this working. Sent from the app!!!";
+  //
+  // telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
 
-  telAPIModule.sendTextMessage(rMsg, "+12267008540")
-
-
-
-  //sending text message to the customer
-  let cMsg = "Hey Customer...it's your turn now!";
-
-  telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
-*/
 });
 
 app.listen(PORT, () => {
