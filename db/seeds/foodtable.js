@@ -139,8 +139,16 @@ exports.seed = function(knex, Promise) {
             calories: "500",
             imageURL: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9be45969a82da44b4d8a8d6283d3a2a2&auto=format&fit=crop&w=500&q=60"
           }
+        ),
+        knex('foods').insert(
+          {
+            price: "0.99",
+            foodName: "Screwdriver",
+            description: "Hair of the dog that bit you",
+            calories: "500",
+            imageURL: "https://images.unsplash.com/photo-1522427088495-81d38b91befb?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bfb4c22b9ecee528176b3fefc5cc391d&auto=format&fit=crop&w=1846&q=80"
+          }
         )
-
       ]);
     });
 };
