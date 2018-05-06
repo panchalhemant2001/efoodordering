@@ -163,6 +163,7 @@ app.post("/checkout", (req, res) => {
        ${newfooditems}.
       The total for your order today will be $${totalprice}.
       Your meal will be ready in 30 minutes.
+      goo.gl/Zypu8V
       See you then!`;
    telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
 
