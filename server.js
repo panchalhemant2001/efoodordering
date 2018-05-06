@@ -153,25 +153,36 @@ app.post("/checkout", (req, res) => {
  .catch((error) => {
    res.send("Error: Order is not submitted!");
  })
+ let rMsg = `Hi Hemant! Thanks for using our app. This is the summary of your customer's order:
+       ${newfooditems}.
+      The total for the order today will be $${totalprice}.
+      Thanks!`;
+   telAPIModule.sendTextMessage(rMsg, "+12267008540")
+   //sending text message to the customer
+   let cMsg = `Hi ${customer}! Thanks for using Bitehouselabs. This is the summary of your order:
+       ${newfooditems}.
+      The total for your order today will be $${totalprice}.
+      Your meal will be ready in 30 minutes.
+      See you then!`;
+   telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
 
-
- const accountSid = settings.accountSid;
- const authToken = settings.authToken;
- const client = require('twilio')(accountSid, authToken);
-
- client.messages
- .create({
-    body:
-    `Hi ${customer}! Thanks for using Bitehouse Labs. This is the summary of your order:
-     ${newfooditems}.
-    The total for your order today will be $${totalprice}.
-    Your meal will be ready in 30 minutes.
-    See you then!`,
-    from: '+12267991623',
-    to: cellnum
-  })
- .then(message => console.log(message.sid))
- .done();
+ // const accountSid = settings.accountSid;
+ // const authToken = settings.authToken;
+ // const client = require('twilio')(accountSid, authToken);
+ //
+ // client.messages
+ // .create({
+ //    body:
+ //    `Hi ${customer}! Thanks for using Bitehouse Labs. This is the summary of your order:
+ //     ${newfooditems}.
+ //    The total for your order today will be $${totalprice}.
+ //    Your meal will be ready in 30 minutes.
+ //    See you then!`,
+ //    from: '+12267991623',
+ //    to: cellnum
+ //  })
+ // .then(message => console.log(message.sid))
+ // .done();
  //
  // //sending text message to the restaurant owner
  // let rMsg = "Hey Ben ...it's your turn now!";
@@ -259,22 +270,34 @@ app.post("/charge", (req, res) => {
   .catch((error) => {
     res.send("Error: Order is not submitted!");
   })*/
-  const accountSid = settings.accountSid;
-  const authToken = settings.authToken;
-  const client = require('twilio')(accountSid, authToken);
-  client.messages
-  .create({
-     body:
-     `Hi ${customer}! Thanks for using Bitehouselabs. This is the summary of your order:
+  let rMsg = `Hi Hemant! Thanks for using our app. This is the summary of your customer's order:
+      ${newfooditems}.
+     The total for the order today will be $${totalprice}.
+     Thanks!`;
+  telAPIModule.sendTextMessage(rMsg, "+12267008540")
+  //sending text message to the customer
+  let cMsg = `Hi ${customer}! Thanks for using Bitehouselabs. This is the summary of your order:
       ${newfooditems}.
      The total for your order today will be $${totalprice}.
      Your meal will be ready in 30 minutes.
-     See you then!`,
-     from: '+12267991623',
-     to: cellnum
-   })
-  .then(message => console.log(message.sid))
-  .done();
+     See you then!`;
+  telAPIModule.sendTextMessage(cMsg, frmJsonObjData.cell);
+  // const accountSid = settings.accountSid;
+  // const authToken = settings.authToken;
+  // const client = require('twilio')(accountSid, authToken);
+  // client.messages
+  // .create({
+  //    body:
+  //    `Hi ${customer}! Thanks for using Bitehouselabs. This is the summary of your order:
+  //     ${newfooditems}.
+  //    The total for your order today will be $${totalprice}.
+  //    Your meal will be ready in 30 minutes.
+  //    See you then!`,
+  //    from: '+12267991623',
+  //    to: cellnum
+  //  })
+  // .then(message => console.log(message.sid))
+  // .done();
   });
 });
 
