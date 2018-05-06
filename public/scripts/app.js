@@ -1,6 +1,6 @@
 $.ajax('/data')
   .then(rows => {
-    console.log(rows);
+    // console.log(rows);
     var food = rows;
 
 
@@ -33,9 +33,9 @@ $.ajax('/data')
       })
 
 
-
-
-
+      $('#btnplaceorder').click(function(){
+        $('#modal-footer').html('<h2> Success </h2>')
+      });
 
 
       $('.addCart').click(function() {
@@ -88,23 +88,6 @@ $.ajax('/data')
         e.preventDefault();
       });
 
-
-      // $("#removeCart").click(function(cookie) {
-      // var cookie = JSON.stringify(getCookie('food'))
-      // console.log($(this).parents().find("#itemCart").text())
-      // $(this).parents().find(".itemCart").remove(".itemCart")
-
-      // for (var keys in cookie) {
-      //   if (cookie[keys].foodName == $(this).parent().find("#cartName").text()) {
-      //     delete cookie[keys]
-      //     document.cookie = `food =`;
-      //     total = JSON.parse(getCookie('food')) || []
-      //     total.push(order);
-      //     var jsonCookie = JSON.stringify(total)
-      //     document.cookie = `food = ${jsonCookie}`;
-      //   }
-      // }
-      // })
     });
 
 
@@ -114,7 +97,6 @@ $.ajax('/data')
 
     //iterate through JSON data and apply function to each element
     function renderFood(food) {
-
       for (var i = 0; i < food.length; i++) {
         //food.length
         var newFood = createFoodCard(food[i])
@@ -124,52 +106,49 @@ $.ajax('/data')
 
     function createFoodCard(input) {
       var newHTML =
-        `<div class= 'card'>
-     <div class="${input.foodId}">
-        <img src="${input.imageURL}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">${input.foodName} - $${input.price}</h5>
-          <p class="card-text">${input.description} </p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${input.foodId}">
-            Learn more
-          </button>
-          </div>
-        </div>
-      </div>
-</div>
-
-      <div class="modal fade" id="${input.foodId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle"><div class='foodName'>${input.foodName}</div>-<div class='price'> ${input.price}</div></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <img class="imgmodal" src="${input.imageURL}" alt="Card image cap">
-
-
-    ${input.description}
-
-    <div class="container">
-  <div class="count-input space-bottom">
-                                <a class="incr-btn" data-action="decrease" href="#">–</a>
-                                <input class="quantity" type="text" name="quantity" value="1"/>
-                                <a class="incr-btn" data-action="increase" href="#">&plus;</a>
-                            </div>
-</div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Close</button><br>
-<button type="button" id=${input.foodId} class="btn btn-secondary btn-lg btn-block addCart" data-dismiss='modal'>Add to Cart</button>
+                  `<div class= 'card'>
+                  <div class="${input.foodId}">
+                  <img src="${input.imageURL}" alt="Card image cap">
+                  <div class="card-body">
+                  <h5 class="card-title">${input.foodName} - $${input.price}</h5>
+                  <p class="card-text">${input.description} </p>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${input.foodId}">
+                  Learn more
+                  </button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="modal fade" id="${input.foodId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle"><div class='foodName'>${input.foodName}</div>-<div class='price'> ${input.price}</div></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <div class="modal-body">
+                  <img class="imgmodal" src="${input.imageURL}" alt="Card image cap">
+                  <br>
+                  ${input.description}
+                  <div class="container">
+                  <div class="count-input space-bottom">
+                  <a class="incr-btn" data-action="decrease" href="#">–</a>
+                  <input class="quantity" type="text" name="quantity" value="1"/>
+                  <a class="incr-btn" data-action="increase" href="#">&plus;</a>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal">Close</button><br>
+                  <button type="button" id=${input.foodId} class="btn btn-secondary btn-lg btn-block addCart" data-dismiss='modal'>Add to Cart</button>
 
 
-      </div>
-    </div>
-  </div>
-</div>`
+                  </div>
+                  </div>
+                  </div>
+                  </div>`
       return newHTML;
     };
 
@@ -220,7 +199,7 @@ $.ajax('/data')
     }
     var checkoutHTML = `
 <form id="frmcheckout">
-  <table align="center"  border-width: 5px; margin-top: 30px; padding: 10px;">
+  <table id='cartTable' align="center"  border-width: 5px; margin-top: 30px; padding: 10px;">
     <tr>
       <th align="right">User Name</th>
       <td colspan="2"><input type="text" name="txtname" id="txtname"></td>
@@ -272,62 +251,4 @@ $.ajax('/data')
     </tr>
 </table>
 `
-
-
-
-    // var checkoutHTML =  `
-    // <form id="frmcheckout">
-    //   <table align="center"  border-width: 5px; margin-top: 30px; padding: 10px;">
-    //     <tr>
-    //       <th align="right">User Name</th>
-    //       <td colspan="2"><input type="text" name="txtname" id="txtname"></td>
-    //     </tr>
-    //     <tr>
-    //       <!--
-    //         ========== FOR FUTURE DEVELOPERS HERE =====
-    //         This name cell is used in coding to extract  information on server.js app.post("/checkout") route.
-    //         Please make change to the code if you change the name from 'cell' to something else...
-    //       -->
-    //       <th align="right">Cell # (Example: 1234567890)</th>
-    //       <td colspan="2"><input type="number" name="cell" id="txtcell"></td>
-    //     </tr>
-    //     <tr>
-    //       <td>
-    //       <td colspan="2">
-    //         <ul id="errList" style="color: red;">
-    //         </ul>
-    //       </td>
-    //     </tr>
-    //     <tr>
-    //       <td colspan="3"><input type="hidden" name="txtamount" id="txtamount"></td>
-    //     </tr>
-    //     <tr>
-    //       <td colspan="3"><input type="hidden" name="txttax" id="txttax"></td>
-    //     </tr>
-    //     <tr>
-    //       <td colspan="3"><input type="hidden" name="txtordertotal" id="txtordertotal"></td>
-    //     </tr>
-    //     <tr>
-    //       <th>Payment Options</th>
-    //       <td colspan="2">
-    //         <input type="radio" name="payoption" value="0" checked>At Counter
-    //         <input type="radio" name="payoption" value="1" >Pay by Card
-    //       </td>
-    //     </tr>
-    //     <tr>
-    //       <td></td>
-    //       <td></td>
-    //       <td>
-    //         <button id="btnplaceorder" type="submit">Place Order</button>
-    //       </td>
-    //     </tr>
-    // </form>
-    //     <tr>
-    //       <td colspan="3">
-    //       <div id="paydiv"> <!-- Payment using Credit/debit card -->
-    //         </div>
-    //       </td>
-    //     </tr>
-    // </table>
-    // `
   })

@@ -38,7 +38,7 @@ exports.seed = function(knex, Promise) {
             foodName: "Pulled Pork Burger",
             description: "Delicious pulled pork burger topped with pineapples, onions, & red cabbage.",
             calories: "1085",
-            imageURL: "https://images.unsplash.com/photo-1511832752475-638d191345e5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0d69a2aa48c6eed28f94cc24b083cc09&auto=format&fit=crop&w=984&q=80"
+            imageURL: "https://i.pinimg.com/originals/be/9b/f3/be9bf319f6a0658d57ebbab85b7c5b2c.jpg"
           }
         ),
         knex('foods').insert(
@@ -56,7 +56,7 @@ exports.seed = function(knex, Promise) {
             foodName: "The Impossible Burger",
             description: "The same great tasting burger....but 100% vegan.",
             calories: "560",
-            imageURL: "https://images.unsplash.com/photo-1521305916504-4a1121188589?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec44d9e3ea91fa2552a4eec4e7897d2e&auto=format&fit=crop&w=800&q=80"
+            imageURL: "https://images.unsplash.com/photo-1508424897381-4fd8755e4b7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79896d89532ce982c53efebba2883a6b&auto=format&fit=crop&w=675&q=80"
           }
         ),
         knex('foods').insert(
