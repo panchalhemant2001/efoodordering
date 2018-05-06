@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
         // Inserts seed entries
         knex('restaurants').insert(
           {
-            restaurantName: "Mikaal Panchal Burgers",
+            restaurantName: "Bitehouse Labs",
             cellNumber: "2267008540",
             street: "46 Spadina st",
             city: "Toronto",

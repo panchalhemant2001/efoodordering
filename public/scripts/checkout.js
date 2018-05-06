@@ -43,7 +43,6 @@ $('document').ready(function() {
     $(document).on('click', '#orderSubmit', function(event) {
       // console.log("This is the cart in JSON string format:",document.cookie);
       let cartItems = JSON.parse(document.cookie)
-
       //let cartItems = JSON.stringify(document.cookie)
       // console.log("This the cart in JSON:", cartItems);
       console.log('THIS IS THE DISPLAY CART FUNCTION RESULT:', getDisplayCardItems(cartItems))
@@ -60,13 +59,26 @@ $('document').ready(function() {
 
     $(document).on('submit', '#frmcheckout', (event) => {
       event.preventDefault();
+
       let payoption = $('#frmcheckout input:radio[name="payoption"]:checked').val();
 
       if(payoption == "1") {
         /*
     =============>>>> TO WORK LATER ON THIS PART ===============>>>>>
         */
-        alert("to be implemented");
+        if(validateCheckoutForm()){
+         $.ajax({
+         type: 'POST',
+         url: '/charge',
+             //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
+         data: {formdata: $("form#frmcheckout").serialize(), orderitems: JSON.stringify(orderItems), email:$('#email').val(), number:$('#cardnumber').val(), exp_month:$('#month').val(), exp_year:$('#year').val(),cvc: $('#cvc').val()},
+         success: function( datareceived, status, jQxhr ){
+           alert("Data Received: " + datareceived);
+           }
+         });
+       } else {
+         $('#txtname').focus();
+       }
       } else if(payoption == "0") {
        if(validateCheckoutForm()) {
          // alert('YI!');
@@ -77,13 +89,27 @@ $('document').ready(function() {
               //data: {formdata: $("form#frmcheckout").serialize(), orderitems: orderItems},
               data: {formdata: $("form#frmcheckout").serialize(), orderitems: JSON.stringify(orderItems)},
               success: function( datareceived, status, jQxhr ){
-              alert("Data Received: " + datareceived);
+              // alert("Data Received: " + datareceived);
               }
             });
          } else {
           $('#txtname').focus();
         }
       }
+      $('#cartTable').replaceWith(`<div class="check_mark">
+  <div class="sa-icon sa-success animate">
+    <span class="sa-line sa-tip animateSuccessTip"></span>
+    <span class="sa-line sa-long animateSuccessLong"></span>
+    <div class="sa-placeholder"></div>
+    <div class="sa-fix"></div>
+  </div>
+</div>
+<center>
+Check your phone for your order details
+
+</center>`)
+      $('.modal-title').replaceWith(`<h4><center>Success</center></h4>`)
+
   });
 
 
@@ -116,19 +142,14 @@ $('document').ready(function() {
 
       let paymentform=
 
-      `<form action="/charge" method="post" id='stripeSubmit'>
-
-        <script
-          src= "//checkout.stripe.com/v2/checkout.js",
-          class= "stripe-button",
-          data-key="pk_test_6NGOL3y0NOiiAho1zSuKhKHf",
-          data-locale= "auto",
-          data-description= "Sample Charge",
-          data-amount="${ordertotal * 100}",
-          data-currency="cad">
-        </script>
-
-      </form>`;
+      `<form action= '/charge' method= 'post'>
+         Email: <input type= 'text' name = 'email' id="email" required>
+         Card Number: <input type= 'text' name = 'number' id="cardnumber" required>
+         Exp Month: <input type= 'text' name = 'exp_month' id="month" required>
+         Exp Year: <input type = 'text' name = 'exp_year' id="year" required>
+         CVC: <input type = 'text' name = 'cvc' id= "cvc" required>
+         <input type= 'submit' value= 'submit' id = 'submit_button'>
+       </form>`;
 
       $('#stripeSubmit').submit(function(){
         alert('yes')
