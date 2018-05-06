@@ -142,12 +142,12 @@ Check your phone for your order details
 
       let paymentform=
 
-      `<form action= '/charge' method= 'post'>
-         Email: <input type= 'text' name = 'email' id="email" required>
-         Card Number: <input type= 'text' name = 'number' id="cardnumber" required>
-         Exp Month: <input type= 'text' name = 'exp_month' id="month" required>
-         Exp Year: <input type = 'text' name = 'exp_year' id="year" required>
-         CVC: <input type = 'text' name = 'cvc' id= "cvc" required>
+      `<form action= '/charge' method= 'post' align='right'>
+         Email: <input type= 'text' name = 'email' id="email" required><br>
+         Card Number: <input type= 'text' name = 'number' id="cardnumber" required><br>
+         Exp Month: <input type= 'text' name = 'exp_month' id="month" required><br>
+         Exp Year: <input type = 'text' name = 'exp_year' id="year" required><br>
+         CVC: <input type = 'text' name = 'cvc' id= "cvc" required><br><br>
          <input type= 'submit' value= 'submit' id = 'submit_button'>
        </form>`;
 
