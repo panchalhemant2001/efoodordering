@@ -1,11 +1,15 @@
 
-
 .card-img-top {
   width: 100%;
 }
 
+#maincontainer{
+    margin-left: 4.8em;
+  }
+
 body {
   background: #eee ;
+  // margin-left: auto;
   // margin-left: 2em;
 }
 
@@ -33,6 +37,7 @@ header {
 #openCart{
   display: flex;
   justify-content: flex-end;
+  margin-left: 95em;
 }
 
 #frmcheckout{

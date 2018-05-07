@@ -117,7 +117,7 @@ exports.seed = function(knex, Promise) {
           {
             price: "7.99",
             foodName: "Beer",
-            description: "Beer",
+            description: "A stunning craft beer that will impress your friends",
             calories: "330",
             imageURL: "https://images.unsplash.com/photo-1518542698889-ca82262f08d5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=82d7aeb8df6ae2af22bfc04afb7e970c&auto=format&fit=crop&w=634&q=80"
           }
@@ -126,7 +126,7 @@ exports.seed = function(knex, Promise) {
           {
             price: "8.99",
             foodName: "Wine",
-            description: "Wine",
+            description: "A lovely Cab Sauv with earthen notes, and a nose of stone fruit",
             calories: "290",
             imageURL: "https://images.unsplash.com/photo-1513618781222-67f7db0dab6b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fcbd3cef323cd615feca9e3292e5910c&auto=format&fit=crop&w=634&q=80"
           }
@@ -135,7 +135,7 @@ exports.seed = function(knex, Promise) {
           {
             price: "9.99",
             foodName: "Mojito",
-            description: "Mojito",
+            description: "Mint, booze, and some citrus",
             calories: "500",
             imageURL: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9be45969a82da44b4d8a8d6283d3a2a2&auto=format&fit=crop&w=500&q=60"
           }

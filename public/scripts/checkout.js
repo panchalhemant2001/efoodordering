@@ -76,6 +76,19 @@ $('document').ready(function() {
            alert("Data Received: " + datareceived);
            }
          });
+         $('#cartTable').replaceWith(`<div class="check_mark">
+     <div class="sa-icon sa-success animate">
+       <span class="sa-line sa-tip animateSuccessTip"></span>
+       <span class="sa-line sa-long animateSuccessLong"></span>
+       <div class="sa-placeholder"></div>
+       <div class="sa-fix"></div>
+     </div>
+   </div>
+   <center>
+   Check your phone for your order details
+
+   </center>`)
+         $('.modal-title').replaceWith(`<h4><center>Success</center></h4>`)
        } else {
          $('#txtname').focus();
        }
@@ -92,23 +105,23 @@ $('document').ready(function() {
               // alert("Data Received: " + datareceived);
               }
             });
+            $('#cartTable').replaceWith(`<div class="check_mark">
+        <div class="sa-icon sa-success animate">
+          <span class="sa-line sa-tip animateSuccessTip"></span>
+          <span class="sa-line sa-long animateSuccessLong"></span>
+          <div class="sa-placeholder"></div>
+          <div class="sa-fix"></div>
+        </div>
+      </div>
+      <center>
+      Check your phone for your order details
+
+      </center>`)
+            $('.modal-title').replaceWith(`<h4><center>Success</center></h4>`)
          } else {
           $('#txtname').focus();
         }
       }
-      $('#cartTable').replaceWith(`<div class="check_mark">
-  <div class="sa-icon sa-success animate">
-    <span class="sa-line sa-tip animateSuccessTip"></span>
-    <span class="sa-line sa-long animateSuccessLong"></span>
-    <div class="sa-placeholder"></div>
-    <div class="sa-fix"></div>
-  </div>
-</div>
-<center>
-Check your phone for your order details
-
-</center>`)
-      $('.modal-title').replaceWith(`<h4><center>Success</center></h4>`)
 
   });
 
