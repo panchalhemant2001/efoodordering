@@ -8,6 +8,7 @@ $.ajax('/data')
 
     $(document).ready(function() {
       $("#openCart").click(function() {
+
         renderCart();
       });
       //render the food items
@@ -19,14 +20,18 @@ $.ajax('/data')
 
       //empty form on submission
       $('#orderSubmit').click(function() {
-        document.cookie = JSON.stringify(total)
+        if(total.length > 0){
+          document.cookie = JSON.stringify(total)
+          //var div = $('#cartBody')['0'].innerHTML;
+          //console.log(div.search('itemCart'));
+          console.log($('#cartBody'))
 
-        //var div = $('#cartBody')['0'].innerHTML;
-        //console.log(div.search('itemCart'));
-        console.log($('#cartBody'))
+          $('#cartBody').replaceWith(checkoutHTML)
+          $('.modal-footer').html('');
+        } else {
+          alert('Empty cart cannot be processed.')
+        }
 
-        $('#cartBody').replaceWith(checkoutHTML)
-        $('.modal-footer').html('');
 
         // var x = document.cookie
 
