@@ -43,4 +43,4 @@ The app was built using HTML, CSS, Boostrap, jQuery, Ajax, Express, PostgreSQL, 
 1. Adding a feature to select toppings and sides.
 2. Better validation checks.
 3. Ability to change the quantity of the items on the checkout cart.
-- Any suggestions are always welcome to improve the application. Please email any ideas to matthewnaik@gmail.com
+- Any suggestions are always welcome to improve the application. Please email any ideas to panchalhemant2001@yahoo.com
